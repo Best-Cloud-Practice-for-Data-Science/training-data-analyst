@@ -14,10 +14,9 @@ limitations under the License.
 """
 
 import apache_beam as beam
-import re
 
 def my_grep(line, term):
-   if re.match( r'^' + re.escape(term), line):
+   if line.startswith(term):
       yield line
 
 PROJECT='cloud-training-demos'
@@ -30,6 +29,7 @@ def run():
       '--save_main_session',
       '--staging_location=gs://{0}/staging/'.format(BUCKET),
       '--temp_location=gs://{0}/staging/'.format(BUCKET),
+      '--region=us-central1',
       '--runner=DataflowRunner'
    ]
 

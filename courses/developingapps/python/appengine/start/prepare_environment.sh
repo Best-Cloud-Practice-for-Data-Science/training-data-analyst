@@ -26,7 +26,7 @@ export GCLOUD_BUCKET=$DEVSHELL_PROJECT_ID-media
 
 echo "Creating virtual environment"
 mkdir ~/venvs
-virtualenv ~/venvs/developingapps
+virtualenv -p python3 ~/venvs/developingapps
 source ~/venvs/developingapps/bin/activate
 
 echo "Installing Python libraries"
@@ -55,6 +55,6 @@ echo "Enabling Cloud Functions API"
 gcloud beta services enable cloudfunctions.googleapis.com
 
 echo "Creating Cloud Function"
-gcloud beta functions deploy process-feedback --trigger-topic feedback --source ./function --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
+gcloud beta functions deploy process-feedback --runtime nodejs8 --trigger-topic feedback --source ./function --stage-bucket $GCLOUD_BUCKET --entry-point subscribe
 
 echo "Project ID: $DEVSHELL_PROJECT_ID"
